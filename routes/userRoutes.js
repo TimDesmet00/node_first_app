@@ -29,4 +29,22 @@ export default function (app) {
       });
     });
   });
+
+  app.delete("/users/destroy", (req, res) => {
+    let email = req.body.email;
+
+    jsonfile.readFile(file_path, function (err, content) {
+      for (let i = 0; i < content.length; i++) {
+        if (content[i].email === email) {
+          console.log("removing" + content[i].email + "from DB");
+          content.splice(i, 1);
+          break;
+        }
+      }
+      jsonfile.writeFile(file_path, content, function (err) {
+        console.log(err);
+        res.send({ status: "200", data: req.body });
+      });
+    });
+  });
 }
