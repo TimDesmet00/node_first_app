@@ -1,10 +1,13 @@
 import express from "express";
 import userRoutes from "./routes/userRoutes.js";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 const app = express();
 
 app.use(express.json());
 
+require("dotenv").config();
 userRoutes(app);
 
 const PORT = 5000;
