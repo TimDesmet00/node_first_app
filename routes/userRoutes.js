@@ -74,4 +74,21 @@ export default function (app) {
       });
     });
   });
+
+  app.get("/user", (req, res) => {
+    let user;
+    let email = req.query.email;
+
+    jsonfile.readFile(file_path, function (err, content) {
+      for (let i = 0; i < content.length; i++) {
+        if (content[i].email === email) {
+          console.log("found user " + email);
+          console.log(content[i]);
+          user = content[i];
+          break;
+        }
+      }
+      res.send({ status: "200", data: user });
+    });
+  });
 }
